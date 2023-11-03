@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 
-const puestasSchema = mongoose.Schema({
-    id_criadero: {
+const criaderoSchema = mongoose.Schema({
+    id_criador: {
         type: Number,
         required: true,
-    },
-    id_criadero: {
-        type: Number,
-        required: true
     },
     nombre_criadero: {
         type: String,
@@ -52,5 +48,5 @@ const puestasSchema = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Puestas', puestasSchema);
+module.exports = mongoose.model('Criadero', criaderoSchema);
  

@@ -141,7 +141,6 @@ const create = async (req, res) => {
             registro: req.body.registro,
             logo:req.body.logo,
             descripcion: req.body.descripcion,
-            
             updated_at: new Date()
         });
     

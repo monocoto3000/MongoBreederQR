@@ -8,6 +8,7 @@ const authRouter = require('./src/routes/auth.route');
 const uploadsRouter = require('./src/routes/uploads.route');
 const puestasRouter = require('./src/routes/puestas.route');
 const especieRouter = require('./src/routes/especie.route');
+const criaderoRouter = require('./src/routes/criadero.route');
 
 // login
 // http://localhost:3000/auth/login
@@ -18,6 +19,7 @@ app.use('/uploads', uploadsRouter);
 app.use('/puestas', puestasRouter)
 app.use('/auth', authRouter);
 app.use('/especies', especieRouter);
+app.use('/criadero', criaderoRouter);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
