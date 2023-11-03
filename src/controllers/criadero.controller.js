@@ -1,29 +1,20 @@
 const usuarioModel = require('../models/criadero.model');
-const bcrypt = require('bcrypt');
-const saltosBcrypt = parseInt(process.env.SALTOS_BCRYPT);
-const path = require('path');
-const fs = require('fs');
-
+const criadorModel = require('../models/criador.model');
 
 const index = async (req, res) => {
     try {
         const {page, limit} = req.query;
         const skip = (page - 1) * limit;
-
         const usuario = req.usuario;
-        
         const usuarios = await usuarioModel.find({deleted: false}).skip(skip).limit(limit);
-
         let response = {
             message: "se obtuvieron los criaderos correctamente",
             data: usuarios
         }
-
         if (page && limit) {
             const totalUsuarios = await usuarioModel.countDocuments({deleted: false});
             const totalPages =  Math.ceil(totalUsuarios / limit);
             const currentPage = parseInt(page);
-
             response = {
                 ...response,
                 total: totalUsuarios,
@@ -31,7 +22,6 @@ const index = async (req, res) => {
                 currentPage,
             }
         }
-
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
@@ -41,23 +31,20 @@ const index = async (req, res) => {
     }
 };
 
-// usuario/:id
+
 const getById = async (req, res) => {
     try {
         const usuarioId = req.params.id;
         const usuario = await usuarioModel.findById(usuarioId);
-
         if (!usuario) {
             return res.status(404).json({
                 message: "criadero no encontrado"
             });
         }
-
         return res.status(200).json({
             message: "criadero obtenido exitosamente",
             usuario
         })
-
     } catch (error) {
         return res.status(500).json({
             message: "ocurrió un error al obtener el criadero",
@@ -66,7 +53,6 @@ const getById = async (req, res) => {
     }
 }
 
-// /usuarios/:id
 const updateParcial = async (req, res) => {
     try {
         const usuarioId = req.params.id;
@@ -74,20 +60,15 @@ const updateParcial = async (req, res) => {
             ...req.body,
             updated_at: new Date()
         }
-
         const usuarioActualizado = await usuarioModel.findByIdAndUpdate(usuarioId, datosActualizar);
-        
         if (!usuarioActualizado) {
             return res.status(404).json({
                 message: "criadero no encontrado"
             });
         }
-
         return res.status(200).json({
             message: "criadero actualizado exitosamente"
         })
-        
-
     } catch (error) {
         return res.status(500).json({
             message: "ocurrió un error al editar el criadero",
@@ -100,8 +81,15 @@ const updateParcial = async (req, res) => {
 const updateCompleto = async (req, res) => {
     try {
         const usuarioId = req.params.id;
+        const id_criador = req.body.id_criador;
+        const criadorExistente = await usuarioModel.findById(id_criador);
+        if (!criadorExistente) {
+            return res.status(400).json({
+                message: "ID inexistente, ingrese un id de criador existente"
+            });
+        }
         const datosActualizar = {
-            id_criador: req.body.id_criador,
+            id_criador: id_criador,
             nombre_criadero: req.body.nombre_criadero,
             direccion: req.body.direccion,
             registro: req.body.registro,
@@ -110,15 +98,12 @@ const updateCompleto = async (req, res) => {
             
             updated_at: new Date()
         }
-
         const usuarioActualizado = await usuarioModel.findByIdAndUpdate(usuarioId, datosActualizar);
-        
         if (!usuarioActualizado) {
             return res.status(404).json({
                 message: "criadero no encontrado"
             });
         }
-
         return res.status(200).json({
             message: "criadero actualizado exitosamente"
         });
@@ -130,12 +115,17 @@ const updateCompleto = async (req, res) => {
     }
 }
 
-
-
 const create = async (req, res) => {
     try {
+        const id_criador = req.body.id_criador;
+        const criadorExistente = await criadorModel.findById(id_criador);
+        if (!criadorExistente) {
+            return res.status(400).json({
+                message: "ID inexistente, ingrese un id de criador existente"
+            });
+        }
         let usuario = new usuarioModel({
-            id_criador: req.body.id_criador,
+            id_criador: id_criador,
             nombre_criadero: req.body.nombre_criadero,
             direccion: req.body.direccion,
             registro: req.body.registro,
@@ -143,35 +133,30 @@ const create = async (req, res) => {
             descripcion: req.body.descripcion,
             updated_at: new Date()
         });
-    
         await usuario.save();
-    
+
         return res.status(201).json({
-            message: "criadero creado exitosamente!"
+            message: "Criadero creado exitosamente"
         });
     } catch (error) {
         return res.status(500).json({
-            message: "falló al crear el criadero!",
+            message: "Error de creacion de criadero",
             error: error.message
         });
     }
 };
-
 const deleteLogico = async (req, res) => {
     try {
         const usuarioId = req.params.id;
         const usuarioEliminado = await usuarioModel.findByIdAndUpdate(usuarioId, {deleted: true, deleted_at: new Date()});
-
         if (!usuarioEliminado) {
             return res.status(404).json({
                 message: "criadero no encontrado"
             })
         }
-
         return res.status(200).json({
             message: "criadero eliminado exitosamente"
         })
-
     } catch (error) {
         return res.status(500).send({
             message: "ocurrió un error al eliminar el criadero",
@@ -190,11 +175,9 @@ const deleteFisico = async (req, res) => {
                 message: "criadero no encontrado"
             });
         }
-
         return res.status(200).json({
             message: "criadero eliminado exitosamente"
         });
-
     } catch (error) {
         return res.status(500).json({
             message: "ocurrió un error al eliminar el criadero",
