@@ -147,7 +147,6 @@ const create = async (req, res) => {
             usuario:req.body.usuario,
             correo: req.body.correo,
             password: bcrypt.hashSync(req.body.password, saltosBcrypt),
-            created_by: authController.login.toString()
         });
         await usuario.save();
         return res.status(201).json({
