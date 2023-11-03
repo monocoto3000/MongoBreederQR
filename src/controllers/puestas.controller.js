@@ -153,11 +153,11 @@ const create = async (req, res) => {
         await usuario.save();
     
         return res.status(201).json({
-            message: "usuario creado exitosamente!"
+            message: "puesta creada exitosamente"
         });
     } catch (error) {
         return res.status(500).json({
-            message: "falló al crear el usuario!",
+            message: "falló al crear la puesta",
             error: error.message
         });
     }

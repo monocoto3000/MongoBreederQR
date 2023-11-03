@@ -82,7 +82,7 @@ const updateCompleto = async (req, res) => {
     try {
         const usuarioId = req.params.id;
         const id_criador = req.body.id_criador;
-        const criadorExistente = await usuarioModel.findById(id_criador);
+        const criadorExistente = await criadorModel.findById(id_criador);
         if (!criadorExistente) {
             return res.status(400).json({
                 message: "ID inexistente, ingrese un id de criador existente"
