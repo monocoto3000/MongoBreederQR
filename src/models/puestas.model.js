@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const puestasSchema = mongoose.Schema({
     id_animal: {
-        type: Number,
+        type: String,
         required: true,
     },
     cantidad: {

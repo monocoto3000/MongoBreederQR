@@ -1,5 +1,5 @@
 const usuarioModel = require('../models/puestas.model');
-// const animalModel = require('../models/animal.model');
+const animalModel = require('../models/animal.model');
 
 const path = require('path');
 const fs = require('fs');
@@ -159,15 +159,15 @@ const updateImagenPerfil = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        // const id_animal = req.body.id_animal;
-        // const animalExistente = await animalModel.findById(id_animal);
-        // if (!animalExistente) {
-        //     return res.status(400).json({
-        //         message: "ID inexistente, ingrese un id de animal existente"
-        //     });
-        // }
+        const id_animal = req.body.id_animal;
+        const animalExistente = await animalModel.findById(id_animal);
+        if (!animalExistente) {
+            return res.status(400).json({
+                message: "ID inexistente, ingrese un id de animal existente"
+            });
+        }
         let usuario = new usuarioModel({
-            id_animal: req.body.id_animal,
+            id_animal: id_animal,
             cantidad: req.body.cantidad,
         });
     

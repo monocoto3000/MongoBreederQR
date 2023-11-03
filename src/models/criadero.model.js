@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const criaderoSchema = mongoose.Schema({
     id_criador: {
-        type: Number,
+        type: String,
         required: true,
     },
     nombre_criadero: {

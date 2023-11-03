@@ -2,15 +2,11 @@ const mongoose = require('mongoose');
 
 const animalSchema = mongoose.Schema({
     id_criadero: {
-        type: Number,
+        type: String,
         required: true,
     },
     id_especie: {
-        type: Number,
-        required: true,
-    },
-    nombre: {
-        type: Date,
+        type: String,
         required: true,
     },
     fecha_nacimiento: {

@@ -4,11 +4,11 @@ const Usuario = require('../models/criadero.model.js');
 const mongoose = require('mongoose');
 
 const criaderos = [
-    { id_criador: "", nombre_criadero: "nombre_criadero1", direccion:"direccion1", registro:"registro1", logo: "logo1", descripcion: "descripcion1" },
-    { id_criador: "", nombre_criadero: "nombre_criadero2", direccion:"direccion2", registro:"registro2", logo: "logo2", descripcion: "descripcion2"  },
-    { id_criador: "", nombre_criadero: "nombre_criadero3", direccion:"direccion3", registro:"registro3", logo: "logo3", descripcion: "descripcion3"  },
-    { id_criador: "", nombre_criadero: "nombre_criadero4", direccion:"direccion4", registro:"registro4", logo: "logo4", descripcion: "descripcion4"  },
-    { id_criador: "", nombre_criadero: "nombre_criadero5", direccion:"direccion5", registro:"registro5", logo: "logo5", descripcion: "descripcion5"  },
+    { id_criador: "65448e686a1b018545aa889d", nombre_criadero: "nombre_criadero1", direccion:"direccion1", registro:"registro1", logo: "logo1", descripcion: "descripcion1" },
+    { id_criador: "65448e686a1b018545aa889e", nombre_criadero: "nombre_criadero2", direccion:"direccion2", registro:"registro2", logo: "logo2", descripcion: "descripcion2"  },
+    { id_criador: "65448e686a1b018545aa889f", nombre_criadero: "nombre_criadero3", direccion:"direccion3", registro:"registro3", logo: "logo3", descripcion: "descripcion3"  },
+    { id_criador: "65448e686a1b018545aa88a0", nombre_criadero: "nombre_criadero4", direccion:"direccion4", registro:"registro4", logo: "logo4", descripcion: "descripcion4"  },
+    { id_criador: "65448e686a1b018545aa88a1", nombre_criadero: "nombre_criadero5", direccion:"direccion5", registro:"registro5", logo: "logo5", descripcion: "descripcion5"  },
 ];
 
 Usuario.deleteMany({})

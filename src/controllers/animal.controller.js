@@ -1,22 +1,20 @@
 const animalModel = require('../models/animal.model');
+const criaderoModel = require('../models/criadero.model');
+const especieModel = require('../models/especie.model');
 
 const index = async (req, res) => {
     try {
         const {page, limit} = req.query;
         const skip = (page - 1) * limit;
-        
         const animales = await animalModel.find({deleted: false}).skip(skip).limit(limit);
-
         let response = {
             message: "se obtuvieron los ejemplares correctamente",
             data: animales
         }
-
         if (page && limit) {
             const totalAnimales = await animalModel.countDocuments({deleted: false});
             const totalPages =  Math.ceil(totalAnimales / limit);
             const currentPage = parseInt(page);
-
             response = {
                 ...response,
                 total: totalAnimales,
@@ -123,9 +121,23 @@ const updateCompleto = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        const id_criadero = req.body.id_criadero;
+        const criaderoExistente = await criaderoModel.findById(id_criadero);
+        if (!criaderoExistente) {
+            return res.status(400).json({
+                message: "ID inexistente, ingrese un id de criadero existente"
+            });
+        }
+        const id_especie = req.body.id_especie;
+        const especieExistente = await especieModel.findById(id_especie);
+        if (!especieExistente) {
+            return res.status(400).json({
+                message: "ID inexistente, ingrese un id de una especie existente"
+            });
+        }
         let animal = new animalModel({
-            id_criadero: req.body.id_criadero,
-            id_especie: req.body.id_especie,
+            id_criadero: id_criadero,
+            id_especie: id_especie,
             nombre: req.body.nombre,
             fecha_nacimiento: req.body.fecha_nacimiento,
             aprovechamiento: req.body.aprovechamiento, 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const fotoSchema = mongoose.Schema({
     id_animal: {
-        type: Number,
+        type: String,
         required: true,
     },
     fotografia: {

@@ -1,6 +1,7 @@
 const fotoModel = require('../models/foto.model');
 const fs = require('fs');
 const path = require('path');
+const animalModel = require('../models/animal.model');
 
 const index = async (req, res) => {
     try {
@@ -153,8 +154,15 @@ const updateFotoAnimal = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        const id_animal = req.body.id_animal;
+        const animalExistente = await animalModel.findById(id_animal);
+        if (!animalExistente) {
+            return res.status(400).json({
+                message: "ID inexistente, ingrese un id de animal existente"
+            });
+        }
         let animal = new fotoModel({
-            id_animal: req.body.id_animal,
+            id_animal: id_animal,
             updated_at: new Date()
         });
         updateFotoAnimal();
