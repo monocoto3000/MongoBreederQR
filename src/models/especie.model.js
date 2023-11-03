@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const criadorModel = require('../models/criador.model');
 
 const especieSchema = mongoose.Schema({
     nombre: {
@@ -10,15 +11,22 @@ const especieSchema = mongoose.Schema({
         required: false,
         default: new Date()
     },
+    created_by: {
+        type: String,
+        required: false,
+    },
     updated_at: {
         type: Date,
         required: false,
         default: null
     },
-    deleted: {
+    deleted_by: {
         type: Boolean,
         required: false,
-        default: false,
+    },
+    deleted_by: {
+        type: String,
+        required: false,
     },
     deleted_at: {
         type: Date,

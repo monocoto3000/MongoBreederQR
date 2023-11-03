@@ -19,7 +19,7 @@ Usuario.deleteMany({})
         return Usuario.insertMany(criadores);
     })
     .then(() => {
-        console.log("usuarios creados");
+        console.log("criadores creados");
         mongoose.connection.close();
     })
     .catch((error) => {

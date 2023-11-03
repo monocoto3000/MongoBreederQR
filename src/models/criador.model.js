@@ -30,6 +30,10 @@ const criadorSchema = mongoose.Schema({
         required: false,
         default: new Date()
     },
+    created_by: {
+        type: Date,
+        required: false,
+    },
     updated_at: {
         type: Date,
         required: false,
@@ -45,6 +49,10 @@ const criadorSchema = mongoose.Schema({
         required: false,
         default: null,
     },
+    deleted_by: {
+        type: Date,
+        required: false,
+    }
 });
 
 module.exports = mongoose.model('Criador', criadorSchema);

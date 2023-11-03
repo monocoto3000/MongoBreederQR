@@ -16,7 +16,7 @@ Usuario.deleteMany({})
         return Usuario.insertMany(puestas);
     })
     .then(() => {
-        console.log("especies creadas");
+        console.log("puestas creadas");
         mongoose.connection.close();
     })
     .catch((error) => {

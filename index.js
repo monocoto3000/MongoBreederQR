@@ -13,6 +13,11 @@ const criaderoRouter = require('./src/routes/criadero.route');
 // login
 // http://localhost:3000/auth/login
 
+// {
+//    "correo":"correo1@gmail.com",
+//    "password":"1234"
+// }
+
 app.use(express.json());
 app.use('/criadores', criadorRouter);
 app.use('/uploads', uploadsRouter);

@@ -1,4 +1,5 @@
 const usuarioModel = require('../models/especie.model');
+const authController = require('../controllers/auth.controller');
 
 const index = async (req, res) => {
     try {
@@ -108,9 +109,7 @@ const create = async (req, res) => {
         let usuario = new usuarioModel({
             nombre: req.body.nombre
         });
-    
         await usuario.save();
-    
         return res.status(201).json({
             message: "usuario creado exitosamente!"
         });
@@ -131,8 +130,7 @@ const deleteLogico = async (req, res) => {
             return res.status(404).json({
                 message: "usuario no encontrado"
             })
-        }
-
+        } 
         return res.status(200).json({
             message: "usuario eliminado exitosamente"
         })
@@ -174,7 +172,7 @@ module.exports = {
     index,
     getById,
     create,
-    delete: deleteLogico,
+    delete: deleteLogico, 
     updateParcial,
     updateCompleto,
 } 

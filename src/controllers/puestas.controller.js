@@ -1,10 +1,9 @@
 const usuarioModel = require('../models/puestas.model');
-const bcrypt = require('bcrypt');
+// const animalModel = require('../models/animal.model');
+
 const path = require('path');
 const fs = require('fs');
 
-// /usuarios?page=1&limit=2
-// server side pagination <- / client side pagination
 const index = async (req, res) => {
     try {
         const {page, limit} = req.query;
@@ -160,6 +159,13 @@ const updateImagenPerfil = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        // const id_animal = req.body.id_animal;
+        // const animalExistente = await animalModel.findById(id_animal);
+        // if (!animalExistente) {
+        //     return res.status(400).json({
+        //         message: "ID inexistente, ingrese un id de animal existente"
+        //     });
+        // }
         let usuario = new usuarioModel({
             id_animal: req.body.id_animal,
             cantidad: req.body.cantidad,

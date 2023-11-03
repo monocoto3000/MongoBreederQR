@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const usuariosController = require('../controllers/criador.controller');
 const authMiddleware = require('../middlewares/auth.middlewares');
-// authMiddleware.verificarJWT
+
 router.get('/',  authMiddleware.verificarJWT, usuariosController.index);
 router.get('/:id', authMiddleware.verificarJWT, usuariosController.getById);
 router.post('/', authMiddleware.verificarJWT, usuariosController.create);
