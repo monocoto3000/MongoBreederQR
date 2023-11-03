@@ -1,42 +1,45 @@
 const bcrypt = require('bcrypt');
+const Usuario = require('../models/criador.model');
 const jwt = require('jsonwebtoken');
-const usuarioModel = require('../models/criador.model');
+const secretJWT = process.env.SECRET_JWT;
 
 const login = async (req, res) => {
     try {
         const {correo, password} = req.body;
+        const usuarioEncontrado = await Usuario.findOne({correo});
 
-        const usuarioEncontrado = await usuarioModel.findOne({correo});
         if (!usuarioEncontrado) {
-            return res.status(400).json({
-                message: "email o password incorrecto"
+            return res.status(200).json({
+                message: "email o contraseña incorrecta"
             });
         }
 
-        const passwordCorrecto = bcrypt.compareSync(password, usuarioEncontrado.password);
-        if (!passwordCorrecto) {
-            return res.status(400).json({
-                message: "email o password incorrecto"
+        const passwordCorrecta = bcrypt.compareSync(password, usuarioEncontrado.password)
+
+        if (!passwordCorrecta) {
+            return res.status(200).json({
+                message: "email o contraseña incorrecta"
             });
         }
 
         const payload = {
             usuario: {
-                id: usuarioEncontrado._id
+                _id: usuarioEncontrado._id
             }
         }
 
-        const token = jwt.sign(payload, 'mi-palabra-secreta', {expiresIn: '1h'});
+        const token = jwt.sign(payload, secretJWT, {expiresIn: '1h'});
 
         return res.status(200).json({
-            message: "acceso correcto",
+            message: "acceso concedido",
             token
         });
+
     } catch (error) {
         return res.status(500).json({
-            message: "ocurrió un error al validar credenciales",
+            message: "error al intentar loguearse",
             error: error.message
-        });
+        })
     }
 }
 

@@ -1,22 +1,28 @@
 const jwt = require('jsonwebtoken');
-const jwtSecret = 'mi-palabra-secreta';
+const secretJWT = process.env.SECRET_JWT;
 
 const verificarJWT = (req, res, next) => {
-    const token = req.get('Authorization');
+    try {
+        const token = req.get('Authorization');
+        jwt.verify(token, secretJWT, (err, decode) => {
+            if (err) {
+                return res.status(401).json({
+                    message: "error al validar token",
+                    error: err.message
+                });
+            }
 
-    jwt.verify(token, jwtSecret, (err, decode) => {
-        if (err) {
-            return res.status(401).send({
-                message: "error al validar token",
-                error: err.message
-            });
-        } else {
             req.usuario = decode.usuario;
             next();
-        }
-    })
-};
+        });
 
+    } catch (error) {
+        return res.status(401).json({
+            message: "error al validar token",
+            error: error.message
+        })
+    }
+}
 
 module.exports = {
     verificarJWT
