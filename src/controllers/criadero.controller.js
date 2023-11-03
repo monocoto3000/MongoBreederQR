@@ -189,40 +189,11 @@ const deleteFisico = async (req, res) => {
 };
 
 
-const uptadeLogo = async (req, res) => {
-    try {
-        const {b64, extension} = req.body;
-        const idFoto = req.params.id;
-        const imagen = Buffer.from(b64, 'base64');
-        const nombreImagen = `${idFoto}${Date.now()}.${extension}`;
-        const fotoEncontrada = await fotoModel.findById(idFoto);
-        if (!fotoEncontrada) {
-            return res.status(404).json({
-                message: "foto no encontrada"
-            });
-        }
-        const uploadPath = path.join(__dirname, '../../uploads', nombreImagen);
-        fs.writeFileSync(uploadPath, imagen)
-        fotoEncontrada.fotografia = nombreImagen;
-        await fotoEncontrada.save();
-        return res.status(200).json({
-            message: "se subió la imagen correctamente"
-        });
-    } catch (error) {
-        return res.status(500).json({
-            message: "ocurrió un error al actualizar imagen del ejemplar",
-            error: error.message
-        });
-    }
-}
-
-
 module.exports = {
     index,
     getById,
     create,
     delete: deleteLogico,
     updateParcial,
-    updateCompleto,
-    uptadeLogo
+    updateCompleto
 } 

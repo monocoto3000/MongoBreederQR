@@ -42,8 +42,6 @@ const getById = async (req, res) => {
 }
 
 
-
-// /usuarios/:id
 const updateParcial = async (req, res) => {
     try {
         const usuarioId = req.params.id;
@@ -51,23 +49,22 @@ const updateParcial = async (req, res) => {
             ...req.body,
             updated_at: new Date()
         }
-
         const usuarioActualizado = await usuarioModel.findByIdAndUpdate(usuarioId, datosActualizar);
         
         if (!usuarioActualizado) {
             return res.status(404).json({
-                message: "usuario no encontrado"
+                message: "especie no encontrada"
             });
         }
 
         return res.status(200).json({
-            message: "usuario actualizado exitosamente"
+            message: "especie actualizada exitosamente"
         })
         
 
     } catch (error) {
         return res.status(500).json({
-            message: "ocurrió un error al editar el usuario",
+            message: "ocurrió un error al editar la especie",
             error: error.message
         });
     }
@@ -75,7 +72,6 @@ const updateParcial = async (req, res) => {
 
 
 
-// /usuarios/:id
 const updateCompleto = async (req, res) => {
     try {
         const usuarioId = req.params.id;
@@ -88,16 +84,16 @@ const updateCompleto = async (req, res) => {
         
         if (!usuarioActualizado) {
             return res.status(404).json({
-                message: "usuario no encontrado"
+                message: "especie no encontrada"
             });
         }
 
         return res.status(200).json({
-            message: "usuario actualizado exitosamente"
+            message: "especie actualizada exitosamente"
         });
     } catch (error) {
         return res.status(500).json({
-            message: "ocurrió un error al editar el usuario",
+            message: "ocurrió un error al editar la especie",
             error: error.message
         });
     }
@@ -110,11 +106,11 @@ const create = async (req, res) => {
         });
         await usuario.save();
         return res.status(201).json({
-            message: "usuario creado exitosamente!"
+            message: "especie creada exitosamente"
         });
     } catch (error) {
         return res.status(500).json({
-            message: "falló al crear el usuario!",
+            message: "error al crear la especie",
             error: error.message
         });
     }
@@ -127,16 +123,16 @@ const deleteLogico = async (req, res) => {
 
         if (!usuarioEliminado) {
             return res.status(404).json({
-                message: "usuario no encontrado"
+                message: "especie no encontrada"
             })
         } 
         return res.status(200).json({
-            message: "usuario eliminado exitosamente"
+            message: "especie eliminada exitosamente"
         })
 
     } catch (error) {
         return res.status(500).send({
-            message: "ocurrió un error al eliminar el usuario",
+            message: "ocurrió un error al eliminar la especie",
             error: error.message
         })
     }
@@ -149,17 +145,17 @@ const deleteFisico = async (req, res) => {
 
         if (!usuarioEliminado) {
             return res.status(404).json({
-                message: "usuario no encontrado"
+                message: "especie no encontrada"
             });
         }
 
         return res.status(200).json({
-            message: "usuario eliminado exitosamente"
+            message: "especie eliminada exitosamente"
         });
 
     } catch (error) {
         return res.status(500).json({
-            message: "ocurrió un error al eliminar el usuario",
+            message: "ocurrió un error al eliminar la especie",
             error: error.message
         })
     }

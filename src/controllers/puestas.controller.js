@@ -170,17 +170,17 @@ const deleteLogico = async (req, res) => {
 
         if (!usuarioEliminado) {
             return res.status(404).json({
-                message: "usuario no encontrado"
+                message: "puesta no encontrada"
             })
         }
 
         return res.status(200).json({
-            message: "usuario eliminado exitosamente"
+            message: "puesta eliminada exitosamente"
         })
 
     } catch (error) {
         return res.status(500).send({
-            message: "ocurrió un error al eliminar el usuario",
+            message: "ocurrió un error al eliminar la puesta",
             error: error.message
         })
     }
@@ -193,17 +193,17 @@ const deleteFisico = async (req, res) => {
 
         if (!usuarioEliminado) {
             return res.status(404).json({
-                message: "usuario no encontrado"
+                message: "puesta no encontrada"
             });
         }
 
         return res.status(200).json({
-            message: "usuario eliminado exitosamente"
+            message: "puesta eliminada exitosamente"
         });
 
     } catch (error) {
         return res.status(500).json({
-            message: "ocurrió un error al eliminar el usuario",
+            message: "ocurrió un error al eliminar la puesta",
             error: error.message
         })
     }
