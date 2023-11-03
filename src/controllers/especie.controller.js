@@ -106,7 +106,7 @@ const updateCompleto = async (req, res) => {
 const create = async (req, res) => {
     try {
         let usuario = new usuarioModel({
-            nombre: req.body.nombre
+            nombre: req.body.nombre,
         });
         await usuario.save();
         return res.status(201).json({

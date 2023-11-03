@@ -11,11 +11,9 @@ const verificarJWT = (req, res, next) => {
                     error: err.message
                 });
             }
-
             req.usuario = decode.usuario;
             next();
         });
-
     } catch (error) {
         return res.status(401).json({
             message: "error al validar token",

@@ -24,8 +24,11 @@ const login = async (req, res) => {
             }
         }
         const token = jwt.sign(payload, secretJWT, {expiresIn: '1h'});
+        const correo_criador = req.body.correo;
+        const criadorExistente = await Usuario.findOne({correo: correo_criador});
         return res.status(200).json({
             message: "acceso concedido",
+            criador: criadorExistente,
             token
         });
     } catch (error) {
