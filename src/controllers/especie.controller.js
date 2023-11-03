@@ -1,5 +1,4 @@
 const usuarioModel = require('../models/especie.model');
-const authController = require('../controllers/auth.controller');
 
 const index = async (req, res) => {
     try {

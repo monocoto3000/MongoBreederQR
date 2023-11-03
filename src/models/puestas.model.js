@@ -8,6 +8,26 @@ const puestasSchema = mongoose.Schema({
     cantidad: {
         type: Number,
         required: true
+    },
+    created_at: {
+        type: Date,
+        required: false,
+        default: new Date()
+    },
+    updated_at: {
+        type: Date,
+        required: false,
+        default: null
+    },
+    deleted: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
+    deleted_at: {
+        type: Date,
+        required: false,
+        default: null,
     }
 });
 

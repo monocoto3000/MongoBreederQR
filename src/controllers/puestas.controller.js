@@ -1,40 +1,19 @@
 const usuarioModel = require('../models/puestas.model');
 const animalModel = require('../models/animal.model');
-
 const path = require('path');
 const fs = require('fs');
 
 const index = async (req, res) => {
     try {
-        const {page, limit} = req.query;
-        const skip = (page - 1) * limit;
-
-        const usuario = req.usuario;
-        
-        const usuarios = await usuarioModel.find({deleted: false}).skip(skip).limit(limit);
-
+        const usuarios = await usuarioModel.find();
         let response = {
-            message: "se obtuvieron los usuarios correctamente",
+            message: "se obtuvieron las especies correctamente",
             data: usuarios
         }
-
-        if (page && limit) {
-            const totalUsuarios = await usuarioModel.countDocuments({deleted: false});
-            const totalPages =  Math.ceil(totalUsuarios / limit);
-            const currentPage = parseInt(page);
-
-            response = {
-                ...response,
-                total: totalUsuarios,
-                totalPages,
-                currentPage,
-            }
-        }
-
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
-            message: "ocurrió un error al obtener los usuarios",
+            message: "ocurrió un error al obtener las especies",
             error: error.message
         });
     }

@@ -93,9 +93,16 @@ const updateParcial = async (req, res) => {
 
 const updateCompleto = async (req, res) => {
     try {
+        const id_animal = req.body.id_animal;
+        const animalExistente = await animalModel.findById(id_animal);
+        if (!animalExistente) {
+            return res.status(400).json({
+                message: "ID inexistente, ingrese un id de animal existente"
+            });
+        }
         const fotoId = req.params.id;
         const datosActualizar = {
-            id_animal: req.body.id_animal,
+            id_animal: id_animal,
             updated_at: new Date()
         }
         updateFotoAnimal();
@@ -125,25 +132,19 @@ const updateFotoAnimal = async (req, res) => {
         const idFoto = req.params.id;
         const imagen = Buffer.from(b64, 'base64');
         const nombreImagen = `${idFoto}${Date.now()}.${extension}`;
-
         const fotoEncontrada = await fotoModel.findById(idFoto);
-
         if (!fotoEncontrada) {
             return res.status(404).json({
                 message: "foto no encontrada"
             });
         }
-
         const uploadPath = path.join(__dirname, '../../uploads', nombreImagen);
         fs.writeFileSync(uploadPath, imagen)
-
         fotoEncontrada.fotografia = nombreImagen;
         await fotoEncontrada.save();
-
         return res.status(200).json({
             message: "se subió la imagen correctamente"
         });
-
     } catch (error) {
         return res.status(500).json({
             message: "ocurrió un error al actualizar imagen del ejemplar",
@@ -163,12 +164,10 @@ const create = async (req, res) => {
         }
         let animal = new fotoModel({
             id_animal: id_animal,
-            updated_at: new Date()
+            fotografia: req.body.fotografia,
         });
         updateFotoAnimal();
-
         await animal.save();
-    
         return res.status(201).json({
             message: "foto creada exitosamente!"
         });

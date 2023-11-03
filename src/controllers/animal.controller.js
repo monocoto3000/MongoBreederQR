@@ -89,11 +89,26 @@ const updateParcial = async (req, res) => {
 const updateCompleto = async (req, res) => {
     try {
         const animalId = req.params.id;
+        const id_criadero = req.body.id_criadero;
+        const criaderoExistente = await criaderoModel.findById(id_criadero);
+        if (!criaderoExistente) {
+            return res.status(400).json({
+                message: "ID inexistente, ingrese un id de criadero existente"
+            });
+        }
+        const id_especie = req.body.id_especie;
+        const especieExistente = await especieModel.findById(id_especie);
+        if (!especieExistente) {
+            return res.status(400).json({
+                message: "ID inexistente, ingrese un id de una especie existente"
+            });
+        }
         const datosActualizar = {
-            id_criadero: req.body.id_criadero,
-            id_especie: req.body.id_especie,
+            id_criadero: id_criadero,
+            id_especie: id_especie,
             nombre: req.body.nombre,
             fecha_nacimiento: req.body.fecha_nacimiento,
+            descripcion: req.body.descripcion,
             aprovechamiento: req.body.aprovechamiento, 
             sexo: req.body.sexo,
             qr: req.body.qr,
@@ -139,11 +154,11 @@ const create = async (req, res) => {
             id_criadero: id_criadero,
             id_especie: id_especie,
             nombre: req.body.nombre,
+            descripcion: req.body.descripcion,
             fecha_nacimiento: req.body.fecha_nacimiento,
             aprovechamiento: req.body.aprovechamiento, 
             sexo: req.body.sexo,
             qr: req.body.qr,
-            updated_at: new Date()
         });
     
         await animal.save();
