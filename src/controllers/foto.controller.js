@@ -234,4 +234,5 @@ module.exports = {
     delete: deleteLogico,
     updateParcial,
     updateCompleto,
+    updateFotoAnimal
 } 

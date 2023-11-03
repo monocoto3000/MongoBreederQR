@@ -9,5 +9,6 @@ router.post('/', authMiddleware.verificarJWT, usuariosController.create);
 router.delete('/:id', authMiddleware.verificarJWT, usuariosController.delete);
 router.patch('/:id', authMiddleware.verificarJWT, usuariosController.updateParcial);
 router.put('/:id', authMiddleware.verificarJWT, usuariosController.updateCompleto);
+router.put('/:id/imagen', usuariosController.updateFotoAnimal);
 
 module.exports = router;

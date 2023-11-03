@@ -19,7 +19,7 @@ const criaderoSchema = mongoose.Schema({
     },
     logo: {
         type: String,
-        required: true,
+        required: false,
     },
     descripcion: {
         type: String,
