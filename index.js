@@ -10,7 +10,7 @@ const puestasRouter = require('./src/routes/puestas.route');
 const especieRouter = require('./src/routes/especie.route');
 
 // login
-// http://localhost:3000/criadores/auth/login
+// http://localhost:3000/auth/login
 
 app.use(express.json());
 app.use('/criadores', criadorRouter);
